@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Page() {
-  return <div>Page</div>;
+  return <div className="font-semibold">Hello World!</div>;
 }
