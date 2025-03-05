@@ -44,10 +44,12 @@ model Preference {
 model Bookmark {
   id String @id @default(cuid())
   generatedAt DateTime @default(now())
-
+  
   // relation
   userId String
   user User @relation(fields: [userId], references: [id])
+  factId String
+  fact Fact @relation(fields: [factId],references: [id])
 }
 
 model Fact {
@@ -59,7 +61,7 @@ model Fact {
 
   // relation
   logs GeneratedFactLog[]
-
+  bookmark Bookmark[]
   userId String
   user User @relation(fields: [userId], references: [id])
 
