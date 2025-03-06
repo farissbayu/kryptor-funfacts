@@ -1,4 +1,13 @@
-export const Logo = () => {
+export const Logo = ({ size = "lg" }) => {
+  const fontSize =
+    size === "sm"
+      ? "text-2xl"
+      : size === "md"
+      ? "text-3xl"
+      : size === "lg"
+      ? "text-5xl"
+      : "";
+
   return (
     <div className="flex justify-center">
       <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
@@ -15,7 +24,9 @@ export const Logo = () => {
           fillRule="evenodd"
         />
       </svg>
-      <h3 className="font-bold text-3xl md:text-5xl bg-gradient-to-r from-red-600 via-red-500 to-yellow-500 inline-block text-transparent bg-clip-text">
+      <h3
+        className={`${fontSize} font-bold bg-gradient-to-r from-red-600 via-red-500 to-yellow-500 inline-block text-transparent bg-clip-text`}
+      >
         .FunFact
       </h3>
     </div>
