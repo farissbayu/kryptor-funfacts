@@ -6,6 +6,11 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function loginAction(_, formData) {
+  const cookieStore = await cookies();
+  if (cookieStore.has("topics")) {
+    cookieStore.delete("topics");
+  }
+
   const email = formData.get("email");
   const password = formData.get("password");
 
@@ -43,7 +48,6 @@ export default async function loginAction(_, formData) {
     },
   });
 
-  const cookieStore = await cookies();
   cookieStore.set("sessionId", session.id, {
     httpOnly: true,
     sameSite: true,

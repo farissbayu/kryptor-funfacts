@@ -23,10 +23,10 @@ export default async function checkSession() {
         isLoggedIn: true,
       };
     }
-
-    return {
-      data: {},
-      isLoggedIn: false,
-    };
   }
+
+  return {
+    data: {},
+    isLoggedIn: false,
+  };
 }
