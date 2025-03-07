@@ -20,15 +20,14 @@ export async function GET(request) {
   });
   const data = await res.json();
 
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
     where: {
       email: data.email,
     },
   });
 
-  let newUser = {};
   if (!user) {
-    newUser = await prisma.user.create({
+    user = await prisma.user.create({
       data: {
         name: data.name,
         email: data.email,
@@ -38,9 +37,11 @@ export async function GET(request) {
 
   const newSession = await prisma.session.create({
     data: {
-      userId: newUser.id,
+      userId: user.id,
     },
   });
+
+  cookieStore.delete("topics");
   cookieStore.set("sessionId", newSession.id, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

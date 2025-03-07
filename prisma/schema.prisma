@@ -24,7 +24,7 @@ model User {
 
   // relation
   sessions Session[]
-  preferences Preference[]
+  preferences UserPreference[]
   bookmarks Bookmark[]
   facts Fact[]
   logs GeneratedFactLog[]
@@ -46,9 +46,20 @@ model Preference {
 
   // relation
   facts Fact[]
+  users UserPreference[]
+}
 
+model UserPreference {
+  id String @id @default(cuid())
+  
+  // relation
   userId String
   user User @relation(fields: [userId], references: [id])
+
+  preferenceId String
+  preference Preference @relation(fields: [preferenceId], references: [id])
+
+  @@unique([userId, preferenceId])
 }
 
 model Bookmark {

@@ -1,20 +1,10 @@
-"use client";
+import { prisma } from "@/utils/prisma";
+import { Card, CardBody, CardHeader } from "@heroui/react";
+import { TopicSelection } from "./_components/topic-selection";
+import checkSession from "@/libs/check-session";
 
-import { TOPICS } from "@/libs/topics";
-import { Button, Card, CardBody, CardHeader, Chip } from "@heroui/react";
-import { useState } from "react";
-import selectTopicsAction from "./action";
-
-export default function Page() {
-  const [selectedTopics, setSelectedTopics] = useState([]);
-
-  function handleSelectTopic(topic) {
-    setSelectedTopics((prevValue) =>
-      prevValue.includes(topic)
-        ? prevValue.filter((t) => t !== topic)
-        : [...prevValue, topic]
-    );
-  }
+export default async function Page() {
+  const topics = await prisma.preference.findMany();
 
   return (
     <main className="w-full min-h-screen bg-gradient-to-br from-red-50 to-yellow-50 flex justify-center items-center">
@@ -35,35 +25,7 @@ export default function Page() {
             </p>
           </CardHeader>
           <CardBody className="px-8 space-y-4">
-            <div className="flex flex-wrap justify-center gap-4">
-              {TOPICS.map((topic) => (
-                <Chip
-                  key={topic}
-                  variant="flat"
-                  className={`cursor-pointer transition-all hover:scale-105 ${
-                    selectedTopics.includes(topic)
-                      ? "bg-red-300"
-                      : "bg-gray-100"
-                  }`}
-                  onClick={() => handleSelectTopic(topic)}
-                >
-                  {topic}
-                </Chip>
-              ))}
-            </div>
-            <div className="flex flex-col space-y-2 items-center">
-              <p className="text-sm">{selectedTopics.length} topics selected</p>
-              <Button
-                variant="solid"
-                className="bg-red-500 font-semibold text-white w-48"
-                radius="full"
-                type="submit"
-                onPress={async () => selectTopicsAction(selectedTopics)}
-                isDisabled={selectedTopics.length < 3}
-              >
-                {selectedTopics.length < 3 ? "Pick more topics" : "Continue"}
-              </Button>
-            </div>
+            <TopicSelection topics={topics} />
           </CardBody>
         </Card>
       </div>
