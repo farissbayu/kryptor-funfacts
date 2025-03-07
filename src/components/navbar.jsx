@@ -15,16 +15,21 @@ export const Navbar = async () => {
   }
 
   return (
-    <header className="fixed top-8 left-1/2 -translate-x-1/2 w-4/5 border-2 border-red-500 rounded-lg py-2 px-8">
+    <header className="fixed top-8 left-1/2 -translate-x-1/2 w-4/5 border-2 border-red-500 rounded-lg py-2 px-8 bg-white/70 backdrop-blur-md z-50">
       <nav className="w-full flex flex-row justify-between items-center">
         <Logo size="sm" />
         <div className="flex flex-row space-x-12">
           <Link href="/" className="hover:text-red-500 font-semibold">
             Home
           </Link>
-          <Link href="/bookmarks" className="hover:text-red-500 font-semibold">
-            Bookmarks
-          </Link>
+          {session.isLoggedIn && (
+            <Link
+              href="/bookmarks"
+              className="hover:text-red-500 font-semibold"
+            >
+              Bookmarks
+            </Link>
+          )}
           <Link href="/about" className="hover:text-red-500 font-semibold">
             About
           </Link>
