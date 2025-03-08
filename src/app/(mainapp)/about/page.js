@@ -1,10 +1,13 @@
+import { Logo } from "@/components/logo";
 import React from "react";
 
 export default function Page() {
   return (
     <main className="w-full min-h-screen flex justify-center items-center relative">
       <div className="p-8 w-5/6 border-2 border-red-400 rounded-md my-32">
-        <h1 className="text-xl font-semibold">About .FunFact</h1>
+        <h1 className="text-xl font-semibold">
+          <Logo />
+        </h1>
 
         <div className="mt-4 space-y-4">
           <p>
