@@ -22,7 +22,9 @@ export default async function Layout({ children }) {
   return (
     <div>
       <Navbar />
-      {children}
+      <main className="w-full flex justify-center items-center relative p-10 overflow-y-scroll snap-y snap-mandatory scrollbar-hide">
+        {children}
+      </main>
     </div>
   );
 }

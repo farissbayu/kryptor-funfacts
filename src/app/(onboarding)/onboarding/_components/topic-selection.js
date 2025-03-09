@@ -3,30 +3,35 @@
 import { Button, Chip } from "@heroui/react";
 import { useState } from "react";
 import selectTopicsAction from "../action";
+import LoadingOverlay from "./loading-overlay";
 
 export const TopicSelection = ({ topics }) => {
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSelectTopic(topic) {
-    setSelectedTopics((prevValue) => {
-      const isTopicSelected = prevValue.some((t) => t.id === topic.id);
+  const handleSelectTopic = (topic) => {
+    const isSelected = selectedTopics.some((x) => x.id === topic.id);
+    if (isSelected) {
+      setSelectedTopics(selectedTopics.filter((x) => x.id !== topic.id));
+    } else if (selectedTopics.length < 3) {
+      setSelectedTopics([...selectedTopics, topic]);
+    }
+  };
 
-      // Jika topic sudah terpilih, maka hapus dari daftar topic
-      if (isTopicSelected) {
-        return prevValue.filter((t) => t.id !== topic.id);
-      }
-      // Jika belum di pilih dan masih di bawah 3 maka tambahkan pada spread array
-      if (prevValue.length < 3) {
-        return [...prevValue, topic];
-      }
-
-      // Jika sudah mencapai batas 3, tidak melakukan perubahan
-      return prevValue;
-    });
-  }
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    try {
+      await selectTopicsAction(selectedTopics); // API request untuk fetch fakta & simpan di DB
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    setIsLoading(false);
+  };
 
   return (
-    <>
+    <div className="relative">
+      {isLoading && <LoadingOverlay />}
+
       <div className="flex flex-wrap justify-center gap-4">
         {topics.map((topic) => {
           const isTopicSelected = selectedTopics.some((x) => x.id === topic.id);
@@ -59,12 +64,12 @@ export const TopicSelection = ({ topics }) => {
           className="bg-red-500 font-semibold text-white w-48"
           radius="full"
           type="submit"
-          onPress={async () => selectTopicsAction(selectedTopics)}
+          onPress={handleSubmit}
           isDisabled={selectedTopics.length < 3}
         >
           {selectedTopics.length < 3 ? "Pick more topics" : "Continue"}
         </Button>
       </div>
-    </>
+    </div>
   );
 };

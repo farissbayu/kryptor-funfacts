@@ -33,7 +33,7 @@ model Preference {
   name      String
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
-  facts     Fact[]
+  // facts     Fact[]
   users     UserPreference[]
 }
 
@@ -59,15 +59,16 @@ model Bookmark {
 model Fact {
   id           String             @id @default(cuid())
   content      String
-  references   Json
+  references   String
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
-  userId       String
+  userId       String?
   preferenceId String
+  title        String
   bookmark     Bookmark[]
-  preference   Preference         @relation(fields: [preferenceId], references: [id])
-  user         User               @relation(fields: [userId], references: [id])
-  logs         GeneratedFactLog[]
+  // preference   Preference         @relation(fields: [preferenceId], references: [id])
+  user         User?   @relation(fields: [userId], references: [id])
+  // logs         GeneratedFactLog[]
 }
 
 model GeneratedFactLog {
@@ -75,6 +76,6 @@ model GeneratedFactLog {
   generatedAt DateTime @default(now())
   userId      String
   factId      String
-  fact        Fact     @relation(fields: [factId], references: [id])
+  // fact        Fact     @relation(fields: [factId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 }
