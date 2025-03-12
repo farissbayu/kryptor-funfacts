@@ -15,7 +15,7 @@ export const Navbar = async () => {
   }
 
   return (
-    <header className="fixed top-8 left-1/2 -translate-x-1/2 w-4/5 border-2 border-red-500 rounded-lg py-2 px-8 bg-white/70 backdrop-blur-md z-50">
+    <header className="fixed top-8 left-1/2 -translate-x-1/2 w-4/5 border-2 border-red-500 rounded-full py-2 px-8 bg-white/70 backdrop-blur-md z-50 mx-auto">
       <nav className="w-full flex flex-row justify-between items-center">
         <Logo size="sm" />
         <div className="flex flex-row space-x-12">

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,90 +8,70 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid())
-  name String
-  email String @unique
-  password String?
-  hasCompletedOnboarding Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // relation
-  sessions Session[]
-  preferences UserPreference[]
-  bookmarks Bookmark[]
-  facts Fact[]
-  logs GeneratedFactLog[]
+  id                     String             @id @default(cuid())
+  name                   String
+  email                  String             @unique
+  password               String?
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+  hasCompletedOnboarding Boolean            @default(false)
+  bookmarks              Bookmark[]
+  facts                  Fact[]
+  logs                   GeneratedFactLog[]
+  sessions               Session[]
+  preferences            UserPreference[]
 }
 
 model Session {
-  id String @id @default(cuid())
-
-  // relation
+  id     String @id @default(cuid())
   userId String
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Preference {
-  id String @id @default(cuid())
-  name String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // relation
-  facts Fact[]
-  users UserPreference[]
+  id        String           @id @default(cuid())
+  name      String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  users     UserPreference[]
 }
 
 model UserPreference {
-  id String @id @default(cuid())
-  
-  // relation
-  userId String
-  user User @relation(fields: [userId], references: [id])
-
+  id           String     @id @default(cuid())
+  userId       String
   preferenceId String
-  preference Preference @relation(fields: [preferenceId], references: [id])
+  preference   Preference @relation(fields: [preferenceId], references: [id])
+  user         User       @relation(fields: [userId], references: [id])
 
   @@unique([userId, preferenceId])
 }
 
 model Bookmark {
-  id String @id @default(cuid())
+  id          String   @id @default(cuid())
   generatedAt DateTime @default(now())
-  
-  // relation
-  userId String
-  user User @relation(fields: [userId], references: [id])
-  factId String
-  fact Fact @relation(fields: [factId],references: [id])
+  userId      String
+  factId      String
+  fact        Fact     @relation(fields: [factId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model Fact {
-  id String @id @default(cuid())
-  content String
-  references Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // relation
-  logs GeneratedFactLog[]
-  bookmark Bookmark[]
-  userId String
-  user User @relation(fields: [userId], references: [id])
-
+  id           String     @id @default(cuid())
+  content      String
+  references   String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
   preferenceId String
-  preference Preference @relation(fields: [preferenceId], references: [id])
+  title        String
+  userId       String?
+  bookmark     Bookmark[]
+  user         User?      @relation(fields: [userId], references: [id])
 }
 
 model GeneratedFactLog {
-  id String @id @default(cuid())
+  id          String   @id @default(cuid())
   generatedAt DateTime @default(now())
-
-  // relation
-  userId String
-  user User @relation(fields: [userId], references: [id])
-
-  factId String
-  fact Fact @relation(fields: [factId], references: [id])
+  userId      String
+  factId      String
+  user        User     @relation(fields: [userId], references: [id])
 }

@@ -1,11 +1,11 @@
-import { Poppins } from "next/font/google";
+import { Shantell_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
-const poppins = Poppins({
+const shantelSans = Shantell_Sans({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata = {
@@ -16,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable}  antialiased`}>
+      <body className={`${shantelSans.variable}  antialiased bg-orange-50`}>
         <Providers>{children}</Providers>
       </body>
     </html>
