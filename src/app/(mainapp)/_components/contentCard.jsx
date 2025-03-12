@@ -16,6 +16,7 @@ import {
   AddBookmarkAction,
 } from "../actions/bookmark-action";
 import IconBookmarkBlack from "@/components/icon/icon-bookmark-black";
+import IconMagnifier from "@/components/icon/icon-magnifier";
 
 export default function ContentCard({
   item,
@@ -41,37 +42,38 @@ export default function ContentCard({
   }
   const cardContent = (
     <Card
-      className="p-5  border-2 border-red-400"
+      className="p-5"
       key={item.id}
       data-index={index}
     >
-      <CardHeader className="items-center justify-center">
-        <h1 className="font-semibold text-md">{item.title}</h1>
+      <div className="w-[150px] absolute top-0 right-0 scale-x-[-1] opacity-10 translate-x-5 -translate-y-5">
+<IconMagnifier></IconMagnifier>
+      </div>
+      <CardHeader>
+        <h1 className="font-semibold text-xl">{item.title}</h1>
       </CardHeader>
-      <CardBody className="space-y-2 items-center justify-center">
+      <CardBody className="space-y-2">
         <span>
           <p className="italic">{item.content}</p>
         </span>
-        <div className="justify-end items-end">
-          <Chip className="text-white" size="sm" color={`${getRandomColor()}`}>
-            {item.preferenceId}
-          </Chip>
-        </div>
         <Link
           href={item.references}
-          className="text-blue-500 text-sm"
+          className="text-blue-500 text-sm underline"
           target="_blank"
         >
-          reference
+          Reference
         </Link>
       </CardBody>
-      <CardFooter className="justify-end items-end">
+      <CardFooter className="flex w-full justify-between">
+        <Chip className="text-white" size="sm" color={`${getRandomColor()}`}>
+            {item.preferenceId}
+        </Chip>
         {session.isLoggedIn && (
-          <Button className="bg-transparent w-5 h-5" onPress={handleBookmark}>
+          <Button className="bg-transparent min-w-fit" onPress={handleBookmark}>
             {isBookmarked ? (
-              <IconBookmarkBlack width={20} height={20} />
+              <IconBookmarkBlack width={36} height={36} />
             ) : (
-              <IconBookmarkWhite width={20} height={20} />
+              <IconBookmarkWhite width={36} height={36} />
             )}
           </Button>
         )}
