@@ -1,0 +1,10 @@
+# GET http://localhost:3000/api/v1/facts
+
+
+POST http://localhost:3000/api/v1/facts
+Content-Type: application/json
+Cookie: sessionId=cm84i6olw0001t7a6zi0p434y
+
+{
+  "topics": [{"name":"Animals"}, {"name":"Fashion Fails"}, {"name":"Sports Records"}]
+}

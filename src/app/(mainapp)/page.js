@@ -14,44 +14,65 @@ import Link from "next/link";
 import React from "react";
 import ContentFeed from "./_components/contentFeed";
 import { cookies } from "next/headers";
+import { getFacts } from "@/libs/get-facts";
 
 export default async function Page() {
   const cookieStore = await cookies();
-  const topics = cookieStore.get("topics")?.value;
-  // topics diubah menjadi array
-  const parsedTopics = topics ? JSON.parse(topics) : [];
-  const topicMap = parsedTopics.map((topic) => topic.name);
   const session = await checkSession();
 
-  if (!session) {
-    const data = await prisma.fact.findMany({
-      where: {
-        preferenceId: {
-          in: topicMap,
+  // topics diubah menjadi array
+  // const topics = cookieStore.get("topics")?.value;
+  // const parsedTopics = topics ? JSON.parse(topics) : [];
+  // const topicMap = parsedTopics.map((topic) => topic.name);
+
+  // if (!session) {
+  //   const data = await prisma.fact.findMany({
+  //     where: {
+  //       preferenceId: {
+  //         in: topicMap,
+  //       },
+  //     },
+  //   });
+  //   return (
+  //     <div className="h-screen block">
+  //       <ContentFeed data={data} session={session} />
+  //     </div>
+  //   );
+  // } else {
+  // }
+  const bookmark = await prisma.bookmark.findMany({
+    where: {
+      userId: session.data.userId,
+    },
+    select: {
+      factId: true,
+    },
+  });
+  const bookmarkedSet = new Set(bookmark.map((b) => b.factId));
+
+  const userPreferences = await prisma.userPreference.findMany({
+    where: {
+      userId: session.data.userId,
+    },
+    select: {
+      preference: {
+        select: {
+          name: true,
         },
       },
-    });
-    return (
-      <div className="h-screen block">
-        <ContentFeed data={data} session={session} />
-      </div>
-    );
-  } else {
-    const data = await prisma.fact.findMany();
-    const bookmark = await prisma.bookmark.findMany({
-      where: {
-        userId: session.data.userId,
-      },
-      select: {
-        factId: true,
-      },
-    });
-    const bookmarkedSet = new Set(bookmark.map((b) => b.factId));
-    console.log(bookmarkedSet);
-    return (
-      <div className="h-screen block">
-        <ContentFeed data={data} session={session} bookmark={bookmarkedSet} />
-      </div>
-    );
-  }
+    },
+  });
+  const topics = userPreferences.map(
+    (preference) => preference.preference.name
+  );
+
+  return (
+    <div className="h-screen block">
+      <ContentFeed
+        userTopics={topics}
+        session={session}
+        bookmark={bookmarkedSet}
+      />
+    </div>
+  );
 }
