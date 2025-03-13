@@ -12,6 +12,7 @@ export const Navbar = async () => {
 
     const cookiesStore = await cookies();
     cookiesStore.delete("sessionId");
+    cookiesStore.delete("codeVerifier");
   }
 
   return (

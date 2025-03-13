@@ -14,7 +14,7 @@ export default async function generateFact(topics, userId) {
                 }]
             }
             `;
-  const userPrompt = `Hi Berikan funfact tentang topic ${topics[0]}, ${topics[1]}, ${topics[2]} sebanyak 6 fakta, berikan referensinya atas fakta tersebut`;
+  const userPrompt = `Hi Berikan funfact tentang topic ${topics[0].name}, ${topics[1].name}, ${topics[2].name} sebanyak 6 fakta, berikan referensinya atas fakta tersebut`;
 
   const messages = [
     { role: "system", content: [{ type: "text", text: systemPrompt }] },
@@ -43,7 +43,7 @@ export default async function generateFact(topics, userId) {
       preferenceId: preferences.find(
         (preference) => preference.name === item.Topic
       ).id,
-      userId,
+      userId: userId !== "" ? userId : null,
     };
   });
 
