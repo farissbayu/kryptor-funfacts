@@ -1,7 +1,6 @@
 import { prisma } from "@/utils/prisma";
 import { Card, CardBody, CardHeader } from "@heroui/react";
 import { TopicSelection } from "./_components/topic-selection";
-import checkSession from "@/libs/check-session";
 
 export default async function Page() {
   const topics = await prisma.preference.findMany();

@@ -29,14 +29,14 @@ export const TopicSelection = ({ topics }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative space-y-4">
       {isLoading && <LoadingOverlay />}
 
       <div className="flex flex-wrap justify-center gap-4">
         {topics.map((topic) => {
-          const isTopicSelected = selectedTopics.some((x) => x.id === topic.id);
           //Jika Jumlah Topic yang di pilih sudah 3 maka topic yang belum di pilih tidak dapat di click
           //Jika topic sudah terpilih maka bisa di hpauss
+          const isTopicSelected = selectedTopics.some((x) => x.id === topic.id);
           const isDisabled = selectedTopics.length >= 3 && !isTopicSelected;
           return (
             <Chip

@@ -41,13 +41,9 @@ export default function ContentCard({
     }
   }
   const cardContent = (
-    <Card
-      className="p-5"
-      key={item.id}
-      data-index={index}
-    >
+    <Card className="p-5" key={item.id} data-index={index}>
       <div className="w-[150px] absolute top-0 right-0 scale-x-[-1] opacity-10 translate-x-5 -translate-y-5">
-<IconMagnifier></IconMagnifier>
+        <IconMagnifier></IconMagnifier>
       </div>
       <CardHeader>
         <h1 className="font-semibold text-xl">{item.title}</h1>
@@ -66,7 +62,7 @@ export default function ContentCard({
       </CardBody>
       <CardFooter className="flex w-full justify-between">
         <Chip className="text-white" size="sm" color={`${getRandomColor()}`}>
-            {item.preferenceId}
+          {item.preferenceId}
         </Chip>
         {session.isLoggedIn && (
           <Button className="bg-transparent min-w-fit" onPress={handleBookmark}>
