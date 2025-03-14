@@ -10,7 +10,6 @@ import {
   Chip,
 } from "@heroui/react";
 import Link from "next/link";
-import { useActionState } from "react";
 import {
   RemoveBookmarkAction,
   AddBookmarkAction,
@@ -22,10 +21,10 @@ export default function ContentCard({
   item,
   index,
   session,
-  bookmark = null,
+  bookmark,
   isBookmarkPage = false,
 }) {
-  const isBookmarked = bookmark.has(item.id);
+  const isBookmarked = bookmark ? bookmark.has(item.id) : "";
   function getRandomColor() {
     const color = ["primary", "secondary", "success", "warning", "danger"];
     return color[index % color.length];
@@ -33,13 +32,13 @@ export default function ContentCard({
 
   async function handleBookmark() {
     const userId = session.data.userId;
-    console.log(userId, item.id);
     if (!isBookmarked) {
       AddBookmarkAction(userId, item.id);
     } else {
       RemoveBookmarkAction(userId, item.id);
     }
   }
+
   const cardContent = (
     <Card className="p-5" key={item.id} data-index={index}>
       <div className="w-[150px] absolute top-0 right-0 scale-x-[-1] opacity-10 translate-x-5 -translate-y-5">
@@ -62,7 +61,7 @@ export default function ContentCard({
       </CardBody>
       <CardFooter className="flex w-full justify-between">
         <Chip className="text-white" size="sm" color={`${getRandomColor()}`}>
-          {item.preferenceId}
+          {item.preference.name}
         </Chip>
         {session.isLoggedIn && (
           <Button className="bg-transparent min-w-fit" onPress={handleBookmark}>

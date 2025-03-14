@@ -31,14 +31,13 @@ export default function ContentFeed({ userTopics, session, bookmark }) {
     generating.current = true;
 
     try {
-      const res = await fetch("/api/v1/facts", {
+      await fetch("/api/v1/facts", {
         method: "POST",
         body: JSON.stringify({ topics: userTopics }),
         credentials: "include",
         headers: { "Content-Type": "application/json" },
       });
-      const data = await res.json();
-      console.log(data);
+      console.log("Facts generated");
     } catch (error) {
       console.log(error);
     } finally {
@@ -75,8 +74,6 @@ export default function ContentFeed({ userTopics, session, bookmark }) {
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
   }, [facts]);
-
-  console.log(facts);
 
   return (
     <div
