@@ -27,7 +27,7 @@ export const Logo = ({ size = "lg" }) => {
       <h3
         className={`${fontSize} font-bold bg-gradient-to-r from-red-600 via-red-500 to-yellow-500 inline-block text-transparent bg-clip-text`}
       >
-        .FunFact
+        .FunFacts
       </h3>
     </div>
   );
