@@ -79,6 +79,7 @@ export default function ContentCard({
   if (isBookmarkPage) {
     return <>{cardContent}</>;
   }
+
   return (
     <div
       className="h-screen w-[365px] snap-start flex flex-col items-center justify-center relative"

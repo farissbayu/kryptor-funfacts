@@ -1,16 +1,5 @@
-import IconBookmarkBlack from "@/components/icon/icon-bookmark-black";
-import IconBookmarkWhite from "@/components/icon/icon-bookmark-white";
-import checkSession from "@/libs/check-session";
 import { prisma } from "@/utils/prisma";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Chip,
-} from "@heroui/react";
-import Link from "next/link";
+import checkSession from "@/libs/check-session";
 import ContentCard from "../_components/contentCard";
 
 export default async function page() {
@@ -20,12 +9,21 @@ export default async function page() {
       userId: session.data.userId,
     },
     include: {
-      fact: true,
+      fact: {
+        include: {
+          preference: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
   const bookmarkedSet = new Set(bookmark.map((b) => b.factId));
+
   return (
-    <div className="block space-y-5 mt-20">
+    <div className="block space-y-5 mt-20 min-h-screen">
       {bookmark.map((item, index) => (
         <ContentCard
           item={item.fact}
