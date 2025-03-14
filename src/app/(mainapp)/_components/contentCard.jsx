@@ -40,7 +40,7 @@ export default function ContentCard({
   }
 
   const cardContent = (
-    <Card className="p-5" key={item.id} data-index={index}>
+    <Card className="p-5 max-w-[400px]" key={item.id} data-index={index}>
       <div className="w-[150px] absolute top-0 right-0 scale-x-[-1] opacity-10 translate-x-5 -translate-y-5">
         <IconMagnifier></IconMagnifier>
       </div>
