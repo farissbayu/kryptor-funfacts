@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${shantelSans.variable}  antialiased bg-orange-50 h-screen`}
+        className={`${shantelSans.variable}  antialiased bg-orange-50 min-h-screen`}
       >
         <Providers>{children}</Providers>
       </body>

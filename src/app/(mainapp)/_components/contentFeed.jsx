@@ -78,7 +78,7 @@ export default function ContentFeed({ userTopics, session, bookmark }) {
   return (
     <div
       ref={containerRef}
-      className="h-screen overflow-y-auto snap-y snap-mandatory scrollbar-hide"
+      className="h-screen w-screen grid justify-center overflow-y-auto snap-y snap-mandatory scrollbar-hide"
     >
       {facts.map((item, index) => (
         <ContentCard

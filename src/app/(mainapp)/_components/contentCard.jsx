@@ -53,7 +53,7 @@ export default function ContentCard({
         </span>
         <Link
           href={item.references}
-          className="text-blue-500 text-sm underline"
+          className="text-blue-500 text-sm underline w-fit"
           target="_blank"
         >
           Reference
