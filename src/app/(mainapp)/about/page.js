@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Page() {
   return (
-    <div className="p-8 w-5/6 border-2 border-red-400 rounded-md my-32">
+    <div className="p-8 w-5/6 border-2 border-red-400 rounded-md md:my-32 mt-60">
       <h1 className="text-xl font-semibold">
         <Logo />
       </h1>
