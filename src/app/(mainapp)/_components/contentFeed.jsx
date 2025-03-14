@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ContentCard from "./contentCard";
+import IconBg from "@/components/icon/icon-bg";
 
 export default function ContentFeed({ userTopics, session, bookmark }) {
   const [facts, setFacts] = useState([]);
@@ -80,6 +81,9 @@ export default function ContentFeed({ userTopics, session, bookmark }) {
       ref={containerRef}
       className="h-screen w-screen grid justify-center overflow-y-auto snap-y snap-mandatory scrollbar-hide"
     >
+      <span className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
+        <IconBg />
+      </span>
       {facts.map((item, index) => (
         <ContentCard
           key={index}
