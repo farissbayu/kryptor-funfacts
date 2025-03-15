@@ -16,7 +16,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${shantelSans.variable}  antialiased bg-orange-50`}>
+      <body
+        className={`${shantelSans.variable}  antialiased bg-orange-50 min-h-screen`}
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

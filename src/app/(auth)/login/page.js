@@ -7,7 +7,7 @@ import { ButtonOauthGoogle } from "../_components/button-oauth-google";
 
 export default function Page() {
   return (
-    <Card className="p-4 md:py-16 md:px-24 shadow-medium w-full md:w-1/2 mx-8">
+    <Card className="p-4 md:py-16 md:px-24 shadow-medium w-full lg:w-1/2 mx-8">
       <CardHeader className="block text-center justify-center items-center space-y-3">
         <Logo />
         <h1 className="font-semibold text-lg md:text-xl">Login first!</h1>

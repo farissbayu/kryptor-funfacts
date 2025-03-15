@@ -23,7 +23,7 @@ export default async function page() {
   const bookmarkedSet = new Set(bookmark.map((b) => b.factId));
 
   return (
-    <div className="block space-y-5 mt-20 min-h-screen">
+    <div className="flex flex-wrap gap-8 justify-center md:mt-20 mt-60">
       {bookmark.map((item, index) => (
         <ContentCard
           item={item.fact}

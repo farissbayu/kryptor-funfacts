@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ContentCard from "./contentCard";
+import IconBg from "@/components/icon/icon-bg";
 
 export default function ContentFeed({ userTopics, session, bookmark }) {
   const [facts, setFacts] = useState([]);
@@ -78,8 +79,14 @@ export default function ContentFeed({ userTopics, session, bookmark }) {
   return (
     <div
       ref={containerRef}
-      className="h-screen overflow-y-auto snap-y snap-mandatory scrollbar-hide"
+      className="h-screen w-screen grid justify-center overflow-y-auto snap-y snap-mandatory scrollbar-hide"
     >
+      <span className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
+        <IconBg />
+      </span>
+      <span className="fixed left-0 right-[0] bottom-[100px] flex items-center justify-center pointer-events-none z-50 text-xl font-bold">
+        Scroll Up or Down to Navigate
+      </span>
       {facts.map((item, index) => (
         <ContentCard
           key={index}

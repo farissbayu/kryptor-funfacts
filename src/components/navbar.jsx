@@ -16,10 +16,10 @@ export const Navbar = async () => {
   }
 
   return (
-    <header className="fixed top-8 left-1/2 -translate-x-1/2 w-4/5 border-2 border-red-500 rounded-full py-2 px-8 bg-white/70 backdrop-blur-md z-50 mx-auto">
-      <nav className="w-full flex flex-row justify-between items-center">
+    <header className="fixed top-8 left-1/2 -translate-x-1/2 w-4/5 border-2 border-red-500 md:rounded-full rounded-3xl py-2 px-8 bg-white/70 backdrop-blur-md z-50 mx-auto">
+      <nav className="w-full flex md:flex-row flex-col justify-between items-center md:space-y-0 space-y-4">
         <Logo size="sm" />
-        <div className="flex flex-row space-x-12">
+        <div className="flex md:flex-row flex-col text-center md:space-x-12 md:space-y-0 space-y-2">
           <Link href="/" className="hover:text-red-500 font-semibold">
             Home
           </Link>
